@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++: Pointers & References Presentation</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Tech Matrix Animated Background Elements -->
+  <div class="tech-bg"></div>
+  <div class="animated-glow"></div>
+
+  <!-- Sticky Presentation Navbar -->
+  <header class="presentation-header">
+    <div class="nav-container">
+      <div class="cpp-logo">std::<span>pointers_and_references</span></div>
+      <nav class="nav-menu">
+        <a href="#intro">Intro</a>
+        <a href="#deep-dive">Deep Dive</a>
+        <a href="#functions">Functions</a>
+        <a href="#blueprint">Blueprint</a>
+        <a href="#quiz-sheet" class="quiz-nav-btn">Review Sheet Quiz</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Container for Slide Deck -->
+  <main class="deck-container">
+    
+    <!-- SLIDE 1: Hero & Presenters Title -->
+    <section id="intro" class="slide hero-slide">
+      <h1>Pointers <span class="amp">&amp;</span> References <span class="keyword">in C++</span></h1>
+      <p class="slide-subtitle">Demystifying Direct Memory Operations and Value Aliasing</p>
+      
+      <!-- Team Credits Matrix Box -->
+      <div class="presenters-box">
+        <div class="presenter-title">REPORTERS</div>
+        <div class="presenter-grid">
+          <div class="presenter-name">Sophia Jane Onida</div>
+          <div class="presenter-name">Ian Joshua Odon</div>
+          <div class="presenter-name">Jean Ernistine Tejome</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Comprehensive Conceptual Framework -->
+    <section id="deep-dive" class="slide section-card">
+      <h2>Understanding the Memory Concept</h2>
+      <p class="section-intro-text">Every variable in C++ resides inside a specific block of physical hardware memory, tracked by a unique hexadecimal address (e.g., <code>0x7ffee3bf8a</code>).</p>
+
+      <div class="comparison-grid">
+        <!-- Pointers Column -->
+        <div class="concept-card pointer-card">
+          <div class="card-header">
+            <span class="icon">*</span>
+            <h3>Pointers Deep Dive</h3>
+          </div>
+          <ul class="concept-bullets">
+            <li><strong>Independent Variable:</strong> Holds its own explicit memory address space which holds another address.</li>
+            <li><strong>Dereferencing Operation:</strong> The <code>*</code> operator forces the CPU to travel to the target address to read/write its contents.</li>
+            <li><strong>Dynamic Lifecycle:</strong> Can change targets mid-execution or point to nothing (<code>nullptr</code>).</li>
+          </ul>
+          <div class="code-window">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <pre><code><span class="type">int</span> original = <span class="number">10</span>;
+<span class="type">int</span>* ptr = &amp;original; <span class="comment">// stores 0x7f...</span>
+*ptr = <span class="number">20</span>;            <span class="comment">// changes original to 20</span>
+ptr = <span class="keyword">nullptr</span>;        <span class="comment">// safe clear out</span></code></pre>
+          </div>
+        </div>
+
+        <!-- References Column -->
+        <div class="concept-card reference-card">
+          <div class="card-header">
+            <span class="icon">&amp;</span>
+            <h3>References Deep Dive</h3>
+          </div>
+          <ul class="concept-bullets">
+            <li><strong>Implicit Handle / Label:</strong> Acts purely as an alternative name or permanent label for an already initialized asset.</li>
+            <li><strong>Zero Overhead:</strong> Syntactically automatically managed by the compiler without active dereferencing syntax.</li>
+            <li><strong>Immutability:</strong> Once bound to a target, it can never shift or refer to anything else.</li>
+          </ul>
+          <div class="code-window">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <pre><code><span class="type">int</span> original = <span class="number">10</span>;
+<span class="type">int</span>&amp; ref = original;  <span class="comment">// ref is a label</span>
+ref = <span class="number">99</span>;             <span class="comment">// original is now 99</span>
+<span class="comment">// int&amp; errRef;       // COMPILE ERROR: Must initialize!</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Function Parameters Pass-By-Pointer vs Pass-By-Reference -->
+    <section id="functions" class="slide section-card">
+      <h2>Passing to Functions: Eliminating Object Copies</h2>
+      <p class="section-intro-text">By default, C++ copies arguments. Passing via Pointer or Reference saves CPU overhead and memory footprint by working with original values.</p>
+
+      <div class="comparison-grid">
+        <div class="code-window">
+          <div class="window-header-title">Pass-By-Pointer Execution</div>
+          <pre><code><span class="keyword">void</span> updateValue(<span class="type">int</span>* numPtr) {
+    <span class="keyword">if</span> (numPtr != <span class="keyword">nullptr</span>) {
+        *numPtr = <span class="number">500</span>; <span class="comment">// Modifies original</span>
+    }
+}
+<span class="comment">// Usage: updateValue(&amp;myVar);</span></code></pre>
+        </div>
+
+        <div class="code-window">
+          <div class="window-header-title">Pass-By-Reference Execution</div>
+          <pre><code><span class="keyword">void</span> updateValue(<span class="type">int</span>&amp; numRef) {
+    numRef = <span class="number">500</span>; <span class="comment">// Much cleaner syntax!</span>
+}
+<span class="comment">// Usage: updateValue(myVar);</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Quick Reference Table Blueprint -->
+    <section id="blueprint" class="slide section-card">
+      <h2>Key Architectural Matrix</h2>
+      <div class="table-responsive">
+        <table class="tech-table">
+          <thead>
+            <tr>
+              <th>Feature Behavior</th>
+              <th>Pointers ( * )</th>
+              <th>References ( &amp; )</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nullability</strong></td>
+              <td class="syntax-accent">Allowed (Can point to <code>nullptr</code>)</td>
+              <td class="syntax-danger">Strictly Forbidden</td>
+            </tr>
+            <tr>
+              <td><strong>Initialization Requirement</strong></td>
+              <td>Optional upon declaration</td>
+              <td class="syntax-accent">Mandatory at declaration</td>
+            </tr>
+            <tr>
+              <td><strong>Arithmetic Manipulations</strong></td>
+              <td class="syntax-accent">Supported (<code>ptr++</code> for arrays)</td>
+              <td>Unsupported</td>
+            </tr>
+            <tr>
+              <td><strong>Memory Signature</strong></td>
+              <td>Occupies standard architecture word size</td>
+              <td>Shares existing address size footprint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: 10-Item Complete Static Quiz Sheet Layout with Answer Toggles -->
+    <section id="quiz-sheet" class="slide sheet-quiz-card">
+      <div class="quiz-header-flex">
+        <div>
+          <h2>Evaluation & Answer Checking</h2>
+          <p class="quiz-subtitle">All 10 questions are visible below. Run through them with the class, then click "Reveal Answers" to verify.</p>
+        </div>
+        <button class="reveal-master-btn" onclick="toggleAllAnswers()">Reveal All Answer Keys</button>
+      </div>
+
+      <div class="questions-list-wrapper" id="questions-root">
+        <!-- Questions will be injected elegantly here by Javascript -->
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
